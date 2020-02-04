@@ -19,9 +19,11 @@ let heterogeneousArr: Array<Any> = [1,harry,3,4, zayn, 78.98]
 let homogeneousSet1 = Set([1, 2])
 let homogeneousSet2: Set = [1,2,3,4]
 
-// Is it not possible to have a heterogeneous set?
+// Is it not possible to have a heterogeneous set? It is, just use <AnyHashable> to overide the issue with conformity
+
 // What is Hashable protocol?
-//let heterogeneousSet: Set<Int> = [1, "Hello"]
+
+let heterogeneousSet: Set<AnyHashable> = [1, "Hello"]
 
 
 //Tuples: fixed in length with identifying names
