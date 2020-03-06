@@ -54,13 +54,13 @@ struct ContentView: View {
         NavigationView{
             
             Form {
-                    Section {
+                    Section (header: Text("What is the cost of the meal?")){
                         TextField("Enter your meal cost", text: $mealCost)
                             .keyboardType(.decimalPad)
                         
                     }
                     
-                    Section {
+                    Section (header: Text("How many people are splitting the bill?")){
                         TextField("Enter number of people", text: $numberOfPeople)
                             .keyboardType(.numberPad)
                         
