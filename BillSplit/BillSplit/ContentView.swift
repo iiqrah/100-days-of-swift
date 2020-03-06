@@ -12,7 +12,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var mealCost = ""
-    @State private var numberOfPeople = 1
+    @State private var numberOfPeople = ""
     
     
     @State private var tipPercentIndex = 4
@@ -22,7 +22,7 @@ struct ContentView: View {
     
     var totalPerPerson: Double {
         
-        let peopleCount = Double(numberOfPeople+1)
+        let peopleCount = Double(numberOfPeople) ?? 1
         let tipPercent = Double(tipPercentValues[tipPercentIndex])
         let totalCost = Double(mealCost) ?? 0
         
@@ -53,8 +53,7 @@ struct ContentView: View {
         
         NavigationView{
             
-                Form {
-                    
+            Form {
                     Section {
                         TextField("Enter your meal cost", text: $mealCost)
                             .keyboardType(.decimalPad)
@@ -62,21 +61,10 @@ struct ContentView: View {
                     }
                     
                     Section {
-                   
-                    Picker("Enter number of people", selection: $numberOfPeople){
+                        TextField("Enter number of people", text: $numberOfPeople)
+                            .keyboardType(.numberPad)
                         
-                        ForEach(1 ..< 100) {
-                            if($0 == 1)
-                            {
-                             Text("\($0) person")
-                            }
-                            else{
-                            Text("\($0) people")
-                            }
                         }
-                    }
-                    
-                }
                     
                     Section (header: Text("How much tip do you want to leave?")){
                                    
