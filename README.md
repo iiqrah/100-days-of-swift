@@ -49,6 +49,8 @@
 ```
   Text("$\(doubleVariable, specifier: "%.2f")")
 ```
+  - Modifier:
+    - .background(Color.red)
 
 - TextField("message", text: $messageVariable)
   - Modifier:
