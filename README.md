@@ -4,6 +4,7 @@
 
 ### Project 1 : [BillSplit](https://github.com/iiqrah/100-days-of-swift/tree/master/BillSplit)
 ### Project 2 : [Mass Conversion](https://github.com/iiqrah/100-days-of-swift/tree/master/mass-conversion)
+### Project 3 : [Guess The Flag](https://github.com/iiqrah/100-days-of-swift/tree/master/GuessTheFlag)
 
 ## Notes:
 
@@ -26,9 +27,79 @@
 
 ### Views
 
+- HStack {}
+- VStack {}
+- ZStack {}
+  - Parameters:
+    - alignment: .leading, .trailing, .top
+    - spacing: 30
+    
+- Spacer()
+
+- Color(red: 1, green: 0.8, blue: 0)
+  - Modifier:
+    - .frame(width: 200, height: 200)
+    - .edgesIgnoringSafeArea(.all)
+
+- Gradient Views
+  - LinearGradient(gradient: Gradient(colors: [.white, .black]), startPoint: .top, endPoint: .bottom)
+  - RadialGradient(gradient: Gradient(colors: [.blue, .black]), center: .center, startRadius: 20, endRadius: 200)
+  - AngularGradient(gradient: Gradient(colors: [.red, .yellow, .green, .blue, .purple, .red]), center: .center)
+
+- Button("button label") { //trigger action }
+
+- Advance Button syntax :
+
+```
+Button(action: {
+    // trigger action
+}) { 
+    Image(systemName: "pencil")
+}
+```
+
+  - Modifier:
+    - .renderingMode(.original)
+
+- Types of images
+  - Image("pencil") will load an image called “Pencil” that you have added to your project
+  - Image(decorative: "pencil") will load the same image, but won’t read it out
+  - Image(systemName: "pencil") will load the pencil icon that is built into iOS
+  
+  -Modifier:
+    - .clipShape(Capsule()) [Capsule(), Rectangle(), Circle(), RoundedRectangle()](https://developer.apple.com/documentation/swiftui/shape)
+    - .overlay()
+    - .stroke(Color.black, lineWidth: 1)
+    - .shadow(color: .black, radius: 2)
+  
+- Alert syntax
+
+```
+Alert(title: Text("Hello SwiftUI!"), message: Text("This is some detail message"), dismissButton: .default(Text("OK")))
+
+```
+
+- Alert with button
+
+```
+struct ContentView: View {
+    @State private var showingAlert = false
+
+    var body: some View {
+        Button("Show Alert") {
+            self.showingAlert = true
+        }
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("Hello SwiftUI!"), message: Text("This is some detail message"), dismissButton: .default(Text("OK")))
+        }
+    }
+}
+```
+
 - Form {}
 - Group {}
 - Section {}
+
 - NavigationView {}
   - Modifier:
     - .navigationBarTitle(Text("SwiftUI"))
@@ -51,6 +122,9 @@
 ```
   - Modifier:
     - .background(Color.red)
+    - .foregroundColor(Color.red)
+    - .font(.largeTitle)
+    - .fontWeight(.black)
 
 - TextField("message", text: $messageVariable)
   - Modifier:
