@@ -20,18 +20,7 @@ struct ContentView: View {
     let tipPercentValues = [0, 5, 10, 15, 20]
     
     
-    var totalPerPerson: Double {
-        
-        let peopleCount = Double(numberOfPeople) ?? 1
-        let tipPercent = Double(tipPercentValues[tipPercentIndex])
-        let totalCost = Double(mealCost) ?? 0
-        
-        let tipValue = (tipPercent/100)*totalCost
-        let grandTotal = totalCost + tipValue
-        let costPerPerson = grandTotal/peopleCount
-        
-        return costPerPerson
-    }
+
     
     
     var grandTotal: Double {
@@ -43,6 +32,16 @@ struct ContentView: View {
         let grandTotal = totalCost + tipValue
         
         return grandTotal
+    }
+    
+    
+    
+    var totalPerPerson: Double {
+        
+        let peopleCount = Double(numberOfPeople) ?? 1
+        let costPerPerson = grandTotal/peopleCount
+        
+        return costPerPerson
     }
     
     
