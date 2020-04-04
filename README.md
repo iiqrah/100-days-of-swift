@@ -121,6 +121,7 @@ struct ContentView: View {
   Text("$\(doubleVariable, specifier: "%.2f")")
 ```
   - Modifier:
+    - .frame(maxWidth: .infinity, maxHeight: .infinity)
     - .background(Color.red)
     - .foregroundColor(Color.red)
     - .font(.largeTitle)
