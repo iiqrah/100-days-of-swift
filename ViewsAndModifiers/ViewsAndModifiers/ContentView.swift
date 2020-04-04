@@ -10,8 +10,10 @@
 
 //SwiftUI there is no behidn view and the order of modifier call matters.
 
+
 import SwiftUI
 
+// Custom ViewModifier with new view structure returning new objects
 struct Watermark: ViewModifier {
     var text: String
 
@@ -33,6 +35,36 @@ extension View {
     }
 }
 
+
+// Custom ViewModifier with existing modifiers
+
+// Challenge 1: Create a custom ViewModifier and extension that makes a view have a large, blue font suitable for prominent titles in a view.
+
+
+struct Challenge1: ViewModifier{
+    
+    func body(content: Content) -> some View {
+        
+        content
+            .font(.largeTitle)
+            .foregroundColor(.blue)
+    }
+}
+
+
+extension View {
+    
+    func Challenge1Style() -> some View {
+        
+        self.modifier(Challenge1())
+    }
+}
+
+
+
+
+
+
 struct Title: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -50,6 +82,8 @@ extension View {
     }
 }
 
+
+// View Composition
 struct CapsuleText: View {
     var text: String
 
