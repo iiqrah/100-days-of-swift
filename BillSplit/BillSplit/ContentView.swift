@@ -7,6 +7,8 @@
 //
 //  Contains the initial user interface (UI) for the program, and is where all the work for this project will be done
 
+// Day 24 Challenge 2: Go back to project 1 and use a conditional modifier to change the total amount text view to red if the user selects a 0% tip.
+
 import SwiftUI
 
 struct ContentView: View {
@@ -33,7 +35,6 @@ struct ContentView: View {
         
         return grandTotal
     }
-    
     
     
     var totalPerPerson: Double {
@@ -78,11 +79,13 @@ struct ContentView: View {
                           
                     Section (header: Text("Total cost inc. tip")) {
                         Text("Your grand total is £\(grandTotal, specifier: "%.2f")")
+                            .foregroundColor(tipPercentIndex == 0  ? .red : .black)
                                           
                         }
                                            
                    Section (header: Text("Amount per person")) {
                        Text("Each person needs to pay £\(totalPerPerson, specifier: "%.2f")")
+                        .foregroundColor(tipPercentIndex == 0  ? .red : .black)
                        
                    }
                     
