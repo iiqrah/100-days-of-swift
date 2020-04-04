@@ -6,7 +6,23 @@
 //  Copyright © 2020 Iqrah Nadeem. All rights reserved.
 //
 
+// Day 24 Challenge 3: Go back to project 2 and create a FlagImage() view that renders one flag image using the specific set of modifiers we had.
+
 import SwiftUI
+
+// View Composition
+struct FlagImage: View {
+    
+    var imageName: String
+    
+    var body: some View{
+        
+        Image(imageName)
+        .renderingMode(.original)
+        .clipShape(Rectangle())
+        .shadow(color: .black, radius: 25)
+    }
+}
 
 struct ContentView: View {
     @State private var showingResult = false
@@ -41,10 +57,9 @@ struct ContentView: View {
                     Button (action: {
                         self.buttonResult(flagIndex)
                     }){
-                        Image(self.countries[flagIndex])
-                        .renderingMode(.original)
-                        .clipShape(Rectangle())
-                            .shadow(color: .black, radius: 25)
+                       
+                        FlagImage(imageName: self.countries[flagIndex])
+                        
                     }
                 }
                 
