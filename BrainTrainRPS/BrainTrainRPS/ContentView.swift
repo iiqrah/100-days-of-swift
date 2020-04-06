@@ -67,6 +67,7 @@ struct ContentView: View {
     }
     
     
+    
     func buttonResult(_ buttonTapped: Int){
         
         //+1 for Outcome: Draw
@@ -76,34 +77,34 @@ struct ContentView: View {
         }
             
         //+1 for Outcome: Win
-        else if (compOutcomeIndex == 1)
+        else if (compOutcomeIndex == 1 && buttonTapped == 0  && compChoiceIndex == 2)
         {
-            if (buttonTapped == 0  && compChoiceIndex == 2)
-            {
-                userScore+=1
-            }
-            else if (compChoiceIndex+1 == buttonTapped)
-            {
-                userScore+=1
-            }
+            userScore+=1
         }
+            
+        else if (compOutcomeIndex == 1 && compChoiceIndex+1 == buttonTapped)
+        {
+            userScore+=1
+        }
+           
         //+1 for Outcome: Lose
-        else if (compOutcomeIndex == 2)
+        else if (compOutcomeIndex == 2 && buttonTapped == 2  && compChoiceIndex == 0)
         {
-            if (buttonTapped == 2  && compChoiceIndex == 0)
-            {
-                userScore+=1
-            }
-            else if (buttonTapped+1 ==  compChoiceIndex)
-            {
-                userScore+=1
-            }
+            userScore+=1
         }
-        
-        else{
+            
+        else if (compOutcomeIndex == 2 && buttonTapped+1 ==  compChoiceIndex)
+        {
+            userScore+=1
+        }
+            
+        else
+        {
             userScore-=1
         }
     }
+    
+    
     
     func gameComplete(){
         roundCount+=1
