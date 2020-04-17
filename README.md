@@ -143,6 +143,8 @@ struct ContentView: View {
     Text("\(value) hours")
     }
     
+    
+### Dates
 
 - DatePicker(
     - "Please enter a date", [label for display/screen readers]
@@ -205,7 +207,7 @@ let dateString = formatter.string(from: Date())
 - Cmd + R: Run app in emulator
 
 
-- Machine Learning 
+### Machine Learning 
 
 1. CoreML iOS 11 2017
 2. CreateML 2018
