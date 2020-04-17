@@ -227,5 +227,10 @@ let dateString = formatter.string(from: Date())
     - Random Forest: similar to boosted trees, but each tree has access to only a subset of data. Each decision tree has its own view of your data that’s different to other trees, and by combining all their predictions together to make an average you stand a great chance of getting a strong result
 5. Data Training
         - Click the play button at the top left corner
-6. Drag the trained output file to desired location for it to be used
+6. Drag the trained output file to desired location for it to be saved [file with .mlmodel extension]
+7. Connecting SwiftUI app to CoreML
+    - Rename .mlmodel file to a suitable class name 
+    - Drag the .mlmodel file to suitable SwiftUI project navigator, below plist is fine
+    - Create instance of class
+    - Feed in the values to the instance
 
