@@ -5,6 +5,8 @@
 ### Project 1 : [BillSplit](https://github.com/iiqrah/100-days-of-swift/tree/master/BillSplit)
 ### Project 2 : [Mass Conversion](https://github.com/iiqrah/100-days-of-swift/tree/master/mass-conversion)
 ### Project 3 : [Guess The Flag](https://github.com/iiqrah/100-days-of-swift/tree/master/GuessTheFlag)
+### Project 4 : [Brain Training Game: Rock, Paper, Scissors](https://github.com/iiqrah/100-days-of-swift/tree/master/BrainTrainRPS)
+### Project 5 : [BetterRest](https://github.com/iiqrah/100-days-of-swift/tree/master/BetterRest)
 
 ## Notes:
 
@@ -133,19 +135,95 @@ struct ContentView: View {
     - .keyboardType(.numberPad)
     
 
-- Stepper(value: $sleepAmount, in: 4...12, step: 0.25) {
-    Text("\(sleepAmount) hours")
+- Stepper(
+    - value: $value, [bind it to a variable]
+    - in: 4...12, [range of values to increment or decrement]
+    - step: 0.25 [the step at which values increment or decrement]
+    ) {
+    Text("\(value) hours")
     }
     
 
-- DatePicker("Please enter a date", selection: $wakeUp, in: Date()...)
+- DatePicker(
+    - "Please enter a date", [label for display/screen readers]
+    - selection: $wakeUpTime, [bind it to a variable with Date() type]
+    - in: Date()... [range of date, can be one sided range as well]
+    - displayedComponents: .hourAndMinute [.date for month, day, and year or .hourAndMinute]
+    
+    )
 
     - Modifier:
         - .labelsHidden()
+        
+- Date range
 
+```
+// when you create a new Date instance it will be set to the current date and time
+let now = Date()
+
+// create a second Date instance set to one day in seconds from now
+let tomorrow = Date().addingTimeInterval(86400) 
+
+// create a range from those two
+let range = now ... tomorrow
+
+```
+
+- DateComponents()
+
+```
+# provide a specific hour and minute to the user 
+var dateComponent = DateComponents()
+dateComponent.hour = 8
+dateComponent.minute = 0
+
+let date = Calendar.current.date(from: components) ?? Date()
+
+```
+
+```
+# recieve a specific hour and minute from the DatePicker 
+let components = Calendar.current.dateComponents([.hour, .minute], from: someDate)
+let hour = components.hour ?? 0
+let minute = components.minute ?? 0
+
+```
+
+- DateFormatter
+
+```
+let formatter = DateFormatter()
+formatter.timeStyle = .short
+let dateString = formatter.string(from: Date())
+
+```
 
 
 ### Shortcuts
 
 - Option + Cmd + P : Resume Automatic Preview
 - Cmd + R: Run app in emulator
+
+
+- Machine Learning 
+
+1. CoreML iOS 11 2017
+2. CreateML 2018
+3. CreateML app 2019 : Xcode Menu > Open Developer Tool > Create ML > New Document > Choose A Template
+
+- Tabular Regression
+
+1. Provide with some raw training data 
+    - Under data inputs > Training Data > Choose file [maybe a .csv file]
+2. Select target (value we want the computer to learn to predict)
+3. Select features (values we want the computer to inspect in order to predict the target)
+4. Pick Algorithm 
+    - Automatic
+    - Linear Regression: to be able to draw one straight line through all your data points, where the average distance between the line and each data point is as small as possible
+    - Decision Tree: form a natural tree structure letting us organize information as a series of choices like 20 questions, until eventually there’s a definitive answer.
+    - Boosted Tree: a series of decision trees, where each tree is designed to correct any errors in the previous tree.
+    - Random Forest: similar to boosted trees, but each tree has access to only a subset of data. Each decision tree has its own view of your data that’s different to other trees, and by combining all their predictions together to make an average you stand a great chance of getting a strong result
+5. Data Training
+        - Click the play button at the top left corner
+6. Drag the trained output file to desired location for it to be used
+
