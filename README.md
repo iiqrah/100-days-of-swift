@@ -100,7 +100,7 @@ struct ContentView: View {
 
 - Form {}
 - Group {}
-- Section {}
+- Section (header: Text("section title")) {}
 
 - NavigationView {}
   - Modifier:
