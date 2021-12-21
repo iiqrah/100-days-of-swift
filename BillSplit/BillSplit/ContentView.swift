@@ -21,6 +21,8 @@ struct ContentView: View {
     
     let tipPercentValues = [0, 5, 10, 15, 20]
     
+    @FocusState private var amountIsFocused : Bool
+    
 
     
     var grandTotal: Double {
@@ -56,12 +58,14 @@ struct ContentView: View {
                         TextField("Enter your meal cost", value: $mealCost, format:
                                         .currency (code: Locale.current.currencyCode ?? "GBP"))
                             .keyboardType(.decimalPad)
+                            .focused($amountIsFocused)
                         
                     }
                     
                     Section (header: Text("How many people are splitting the bill?")){
                         TextField("Enter number of people", value: $numberOfPeople, format: .number)
                             .keyboardType(.numberPad)
+                            .focused($amountIsFocused)
                         
                         }
                     
@@ -94,6 +98,14 @@ struct ContentView: View {
                         
                     
                 .navigationBarTitle("BillSplit", displayMode: .inline)
+                .toolbar{
+                    ToolbarItemGroup(placement: .keyboard){
+                        Spacer()
+                        Button("Done"){
+                            amountIsFocused = false
+                        }
+                    }
+                }
         }
     
     }
