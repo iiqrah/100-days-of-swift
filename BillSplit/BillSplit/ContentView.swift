@@ -13,22 +13,20 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var mealCost = ""
-    @State private var numberOfPeople = ""
+    @State private var mealCost = 0.0
+    @State private var numberOfPeople = 2
     
     
     @State private var tipPercentIndex = 4
     
     let tipPercentValues = [0, 5, 10, 15, 20]
     
-    
 
-    
     
     var grandTotal: Double {
         
         let tipPercent = Double(tipPercentValues[tipPercentIndex])
-        let totalCost = Double(mealCost) ?? 0
+        let totalCost = Double(mealCost)
         
         let tipValue = (tipPercent/100)*totalCost
         let grandTotal = totalCost + tipValue
@@ -39,7 +37,7 @@ struct ContentView: View {
     
     var totalPerPerson: Double {
         
-        let peopleCount = Double(numberOfPeople) ?? 1
+        let peopleCount = Double(numberOfPeople)
         let costPerPerson = grandTotal/peopleCount
         
         return costPerPerson
@@ -55,13 +53,14 @@ struct ContentView: View {
             
             Form {
                     Section (header: Text("What is the cost of the meal?")){
-                        TextField("Enter your meal cost", text: $mealCost)
+                        TextField("Enter your meal cost", value: $mealCost, format:
+                                        .currency (code: Locale.current.currencyCode ?? "GBP"))
                             .keyboardType(.decimalPad)
                         
                     }
                     
                     Section (header: Text("How many people are splitting the bill?")){
-                        TextField("Enter number of people", text: $numberOfPeople)
+                        TextField("Enter number of people", value: $numberOfPeople, format: .number)
                             .keyboardType(.numberPad)
                         
                         }
@@ -77,14 +76,16 @@ struct ContentView: View {
                         
                         }
                           
-                    Section (header: Text("Total cost inc. tip")) {
-                        Text("Your grand total is £\(grandTotal, specifier: "%.2f")")
+                    Section (header: Text("Your grand total is")) {
+                        Text(grandTotal, format:
+                                    .currency (code: Locale.current.currencyCode ?? "GBP"))
                             .foregroundColor(tipPercentIndex == 0  ? .red : .black)
                                           
                         }
                                            
-                   Section (header: Text("Amount per person")) {
-                       Text("Each person needs to pay £\(totalPerPerson, specifier: "%.2f")")
+                   Section (header: Text("Each person needs to pay")) {
+                       Text(totalPerPerson, format:
+                                    .currency (code: Locale.current.currencyCode ?? "GBP"))
                         .foregroundColor(tipPercentIndex == 0  ? .red : .black)
                        
                    }
