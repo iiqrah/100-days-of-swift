@@ -5,12 +5,16 @@
 //  Created by Iqrah Nadeem on 07/03/2020.
 //  Copyright © 2020 Iqrah Nadeem. All rights reserved.
 //
+// Hacking w/ Swift article on How to convert units using Unit and Measurement:
+// https://www.hackingwithswift.com/example-code/system/how-to-convert-units-using-unit-and-measurement
+//
+
 
 import SwiftUI
 
 struct ContentView: View {
     
-    @State private var inputValue = ""
+    @State private var inputValue = 10.10
     @State private var inputUnitIndex = 0
     @State private var outputUnitIndex = 1
     
@@ -20,7 +24,7 @@ struct ContentView: View {
     var convertToGram : Double {
         
         let inputUnit = unitValues[inputUnitIndex]
-        let value = Double(inputValue) ?? 0
+        let value = Double(inputValue)
         
         switch (inputUnit) {
             case unitValues[1]:
@@ -71,7 +75,7 @@ struct ContentView: View {
                         }
                     }
                     
-                    TextField("Enter Input Value", text: $inputValue).keyboardType(.decimalPad)
+                    TextField("Enter Input Value", value: $inputValue, format: .number).keyboardType(.decimalPad)
                     
                 }.pickerStyle(SegmentedPickerStyle())
                 
