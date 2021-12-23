@@ -36,52 +36,72 @@ struct ContentView: View {
     var body: some View {
         ZStack{
             
-            Color.init(red: 0, green: 0, blue: 0,opacity: 0.85)
-            .edgesIgnoringSafeArea(.all)
+            // Color.init(red: 0, green: 0, blue: 0,opacity: 0.85)
+            RadialGradient(stops: [
+                            .init(color: Color(red: 0.1, green: 0.2, blue: 0.45), location: 0.3),
+                            .init(color: Color(red: 0.76, green: 0.15, blue: 0.26), location: 0.3)
+                        ], center: .top, startRadius: 200, endRadius: 700)
+                            .ignoresSafeArea()
             
             
-            VStack(alignment: .center, spacing: 80){
+            VStack{
                 Spacer()
-                VStack{
-                    Text("Tap the flag of")
-                    Text(countries[correctAnswer])
-                    .font(.largeTitle)
-                    .fontWeight(.black)
-                }.foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-               
-               
+                Spacer()
                 
-               ForEach (0 ..< 3)
-                { flagIndex in
-                    Button (action: {
-                        self.buttonResult(flagIndex)
-                    }){
-                       
-                        FlagImage(imageName: self.countries[flagIndex])
+                Text("Guess the Flag")
+                .font(.largeTitle.bold())
+                .foregroundColor(.white)
+                
+                VStack(spacing: 15){
+                    VStack {
+                    
+                        Text("Tap the flag of")
+                            .foregroundStyle(.secondary)
+                            .font(.subheadline.weight(.heavy))
                         
+                        Text(countries[correctAnswer])
+                        .font(.largeTitle.weight(.semibold))
+                        
+                        
+                        
+                          ForEach (0 ..< 3)
+                           { flagIndex in
+                               Button {
+                                   buttonResult(flagIndex)
+                               } label: {
+                               Image(countries[flagIndex])
+                                   .renderingMode(.original)
+                                   .clipShape(Capsule())
+                                   .shadow(radius: 5)
+                               }
+                           }
                     }
-                }
-                
-                HStack{
-                    Text("Your score: \(userScore)")
-                        .foregroundColor(.white)
-                        .font(.headline)
-                }
-                Spacer()
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 20)
+                    .background(.regularMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    
+                    
+                    Spacer()
+                    
+                    
+                    
+                    HStack{
+                        Text("Your score: \(userScore)")
+                            .font(.largeTitle.weight(.semibold))
+                            .foregroundColor(.white)
+                    }
+                    
+                    Spacer()
+                    
+            }
+                .padding()
                 
             }
-        }.alert(isPresented: $showingResult){
-            
-            Alert(
-                title: Text(resultMessage),
-                message: Text("Your score is \(userScore)"),
-                dismissButton: .default(Text("Next Question")){
-                    self.nextQuestion()
-                }
-            
-            )
-            
+        }.alert(resultMessage, isPresented: $showingResult) {
+            Button("Continue", action: nextQuestion)
+        } message: {
+            Text("Your score is \(userScore)")
         }
     }
     
