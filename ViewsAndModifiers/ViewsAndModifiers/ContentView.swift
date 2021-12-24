@@ -119,6 +119,9 @@ struct ContentView: View {
             CapsuleText(text: "Custom Container 1")
             CapsuleText(text: "Custom Container 2")
             
+            Text("Challenge Style")
+                .Challenge1Style()
+            
             Text("This text is using a custom modifier")
             .modifier(Title())
             
