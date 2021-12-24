@@ -10,8 +10,9 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let choices = ["Rock", "Paper", "Scissors"]
-    let outcome = ["Draw", "Win", "Lose"]
+    let choices = ["👊", "🤚", "✌️"]
+    let outcome = ["draw", "win", "lose"]
+    let roundLimit = 10
     
     @State private var showingResult = false
     @State private var resultMessage = ""
@@ -20,46 +21,97 @@ struct ContentView: View {
     @State private var compOutcomeIndex = Int.random(in: 0..<3)
     
     @State private var userScore = 0
-    @State private var roundCount = 0
+    @State private var roundCount = 1
     
     var body: some View {
-        
-        NavigationView{
+        ZStack{
             
+            LinearGradient(gradient: Gradient(colors: [.purple, .mint]), startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
+
             
-            VStack{
-                Spacer()
-                Text("Round \(roundCount)/10")
-                Text("Score: \(userScore)")
-                Spacer()
-                Text(self.choices[compChoiceIndex])
-                Text(self.outcome[compOutcomeIndex])
-                Spacer()
-                HStack{
-                    ForEach (0 ..< 3)
-                    { choiceIndex in
-                        Button (action: {
-                            self.buttonResult(choiceIndex)
-                            self.gameComplete()
-                            self.nextQuestion()
-                        }){
-                            Text(self.choices[choiceIndex])
-                        }
+                VStack{
+                    Spacer()
+                    Spacer()
+                    
+                    VStack{
+                        Text("Rock Paper Scissors").font(.largeTitle.bold()).padding()
+                        
+                        Text("Round: \(roundCount)/10").font(.title)
+                        
+                    }.padding()
+                    
+                    
+                    VStack {
+                        VStack{
+                            
+                            Text("Bot").padding()
+                            Text(choices[compChoiceIndex])
+                            .padding()
+                            .overlay(
+                                Capsule(style: .continuous)
+                                    .stroke(lineWidth: 5)
+                            )
+                           
+                        }.font(.largeTitle)
+                        
+                        
+                        
+                        VStack{
+                            Spacer()
+                            Text("You should \(outcome[compOutcomeIndex])")
+                            Text("Choose wisely.")
+                            Spacer()
+                        }.font(.title2)
+                        
+    
+                        VStack{
+                            
+                            Text("You").padding()
+                            
+                            HStack{
+                                Spacer()
+                                ForEach (0 ..< 3)
+                                { choiceIndex in
+                                    Button (action: {
+                                        buttonResult(choiceIndex)
+                                        gameComplete()
+                                        nextQuestion()
+                                    }){
+                                        Text(choices[choiceIndex])
+                                            .padding()
+                                            .overlay(
+                                                Capsule(style: .continuous)
+                                                    .stroke(lineWidth: 5)
+                                            )
+                                        
+                                    }
+                                    
+                                    Spacer()
+                                }
+                            }
+                            
+                            Spacer()
+                        }.font(.largeTitle)
+                    }.padding()
+                    
+                    VStack{
+                        Text("\(resultMessage)")
+                        Text("Your score: \(userScore)")
                     }
+                    .font(.title)
+                    
+                    
+                    Spacer()
                 }
-                Spacer()
-            }
-           
-            .navigationBarTitle("BrainTrainGame:👊 ✋✌️")
-        }
+        }.foregroundColor(.white)
         .alert(isPresented: $showingResult){
-            
             Alert(
-                title: Text(resultMessage),
+                title: Text("Game Over"),
                 message: Text("Your final score is \(userScore)"),
                 dismissButton: .default(Text("Restart")){
-                    self.roundCount = 0
-                    self.userScore = 0
+                    roundCount = 1
+                    userScore = 0
                 }
             )
             
@@ -74,33 +126,39 @@ struct ContentView: View {
         if (compOutcomeIndex == 0 && buttonTapped == compChoiceIndex)
         {
             userScore+=1
+            //resultMessage = "Easy thinking, easy +1 for you!"
         }
             
         //+1 for Outcome: Win
         else if (compOutcomeIndex == 1 && buttonTapped == 0  && compChoiceIndex == 2)
         {
             userScore+=1
+            //resultMessage = "Win win situation, won the round and a point."
         }
             
         else if (compOutcomeIndex == 1 && compChoiceIndex+1 == buttonTapped)
         {
             userScore+=1
+            //resultMessage = "Wohoo! smart thinking, you get +1"
         }
            
         //+1 for Outcome: Lose
         else if (compOutcomeIndex == 2 && buttonTapped == 2  && compChoiceIndex == 0)
         {
             userScore+=1
+            //resultMessage = "Yayy, +1 to you"
         }
             
         else if (compOutcomeIndex == 2 && buttonTapped+1 ==  compChoiceIndex)
         {
             userScore+=1
+            //resultMessage = "Nice one, you rightfully lost to gain a point."
         }
             
         else
         {
             userScore-=1
+            //resultMessage = "Oops, wrong choice."
         }
     }
     
@@ -109,7 +167,7 @@ struct ContentView: View {
     func gameComplete(){
         roundCount+=1
         
-        if (roundCount == 10){
+        if (roundCount == roundLimit){
             showingResult = true
         }
         
