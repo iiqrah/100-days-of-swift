@@ -28,6 +28,10 @@ struct ContentView: View {
     @State private var showingResult = false
     @State private var resultMessage = ""
     @State private var userScore = 0
+    @State private var questionCount = 1
+    @State private var reachedQuestionLimit = false
+    let questionLimit = 8
+    
     
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     
@@ -48,9 +52,14 @@ struct ContentView: View {
                 Spacer()
                 Spacer()
                 
-                Text("Guess the Flag")
+                VStack{
+                    Text("Guess the Flag")
+                    Text("\(questionCount) / \(questionLimit)")
+                }
                 .font(.largeTitle.bold())
                 .foregroundColor(.white)
+                
+                
                 
                 VStack(spacing: 15){
                     VStack {
@@ -74,6 +83,10 @@ struct ContentView: View {
                                    .clipShape(Capsule())
                                    .shadow(radius: 5)
                                }
+                           }.alert(resultMessage, isPresented: $reachedQuestionLimit) {
+                               Button("Play Again", action: resetGame)
+                           } message: {
+                               Text("Your final score is \(userScore)")
                            }
                     }
                     .frame(maxWidth: .infinity)
@@ -84,24 +97,20 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    
-                    
-                    HStack{
-                        Text("Your score: \(userScore)")
-                            .font(.largeTitle.weight(.semibold))
-                            .foregroundColor(.white)
-                    }
+                    Text("Your score: \(userScore)")
+                    .font(.title)
+                    .foregroundColor(.white)
                     
                     Spacer()
                     
+            }.alert(resultMessage, isPresented: $showingResult) {
+                Button("Continue", action: nextQuestion)
+            } message: {
+                Text("Your score is \(userScore)")
             }
                 .padding()
                 
             }
-        }.alert(resultMessage, isPresented: $showingResult) {
-            Button("Continue", action: nextQuestion)
-        } message: {
-            Text("Your score is \(userScore)")
         }
     }
     
@@ -117,12 +126,30 @@ struct ContentView: View {
         }
         
         showingResult = true
+        
+        questionCounter()
+    }
+    
+    func questionCounter(){
+        if questionCount == questionLimit{
+            showingResult = false
+            reachedQuestionLimit = true
+        }
     }
     
     func nextQuestion(){
         
+        questionCount += 1
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+        
+    }
+    
+    func resetGame(){
+        
+        userScore = 0
+        questionCount = 0
+        nextQuestion()
         
     }
 }
