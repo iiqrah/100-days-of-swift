@@ -5,7 +5,12 @@
 //  Created by iiqrah on 30/12/2021.
 //
 // Implicit animation: suggested through values that are affected by the state, always have to watch for a value attached to it changing to trigger it
+
 // Animations also become functions of the state, just like the views themselves.
+
+// Animation can be binded to any data, even booleans because the animation is not inventing any new values for the transition, if you print out the values for button increase animation, it goes from 1.0 to 2.0 rather than 1.0 -> 1.5 -> 2.0, so with this logic animation can be applied to true -> false change as well
+
+// Implicit animation can take places by setting the animation on a view and implicitly animating it with a state change OR setting a change in state and changing the view without the view havin any prior knowledge about the change 
 
 import SwiftUI
 
