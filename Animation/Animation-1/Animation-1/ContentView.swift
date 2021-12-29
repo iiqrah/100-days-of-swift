@@ -35,33 +35,62 @@ extension View {
 struct ContentView: View {
     
     @State private var animationScaleAmount = 1.0
+    @State private var foreverRippleEffect = 1.0
     
     var body: some View {
         
         
-        //Scale effect with implicit animation applied to this button
-        //Every time button tapped -> animationScaleAmount increases by one, gets passed to .scaleEffect and .animation to make it happen
-        Button("Tap Me"){
-            animationScaleAmount += 1
-            //do nothing
-        }.RedbuttonStyle()
-        .scaleEffect(animationScaleAmount)
-        // default is .easeInOut effect
-        //.animation(.default, value: animationScaleAmount)
-        
-        //Other types of animation
-        
-        //easeOut effect that completes in 2 seconds
-        //.delay. .repeatCount, or .repeatForver modifier can be applied to the animation modifer itself
-        .animation(.easeOut(duration: 2).repeatCount(3), value: animationScaleAmount)
-        
-        //interpolatingSpring effect with stiffness and damping (how bouncy it is, lower value means more bouncy)
-        //.animation(.interpolatingSpring(stiffness: 100, damping: 1), value: animationScaleAmount)
-        
-        
-        
+        VStack{
+            
+            //Scale effect with implicit animation applied to this button
+            //Every time button tapped -> animationScaleAmount increases by one, gets passed to .scaleEffect and .animation to make it happen
+            Button("Tap Me"){
+                animationScaleAmount += 1
+                //do nothing
+            }.RedbuttonStyle()
+            .scaleEffect(animationScaleAmount)
+            // default is .easeInOut effect
+            //.animation(.default, value: animationScaleAmount)
+            
+            //Other types of animation
+            
+            //easeOut effect that completes in 2 seconds
+            //.delay. .repeatCount, or .repeatForver modifier can be applied to the animation modifer itself
+                .animation(.easeOut(duration: 2).repeatCount(3), value: animationScaleAmount)
+            
+            //interpolatingSpring effect with stiffness and damping (how bouncy it is, lower value means more bouncy)
+            //.animation(.interpolatingSpring(stiffness: 100, damping: 1), value: animationScaleAmount)
+            
+            
+            Spacer()
+            
+            Button("Tap Me"){
+                //do nothing
+            }.RedbuttonStyle()
+            //Cretes a ripple effect as an overlay around the red button when tapped
+                .overlay(
+                    Circle()
+                        .stroke(.red)
+                        .scaleEffect(foreverRippleEffect)
+                        .opacity(2 - foreverRippleEffect)
+                    
+                        .animation(
+                            .easeOut(duration: 1)
+                                .repeatForever(autoreverses: false),
+                            value: foreverRippleEffect
+                        )
+                )
+                .onAppear {
+                    foreverRippleEffect = 2
+                }
+            
+            Spacer()
+        }
+
     }
+       
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
