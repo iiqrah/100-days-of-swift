@@ -4,8 +4,8 @@
 //
 //  Created by iiqrah on 30/12/2021.
 //
-// Implicit animation: suggested through  values though not directly expressed kinda animation
-// Animations also become functions of the state, just like the views themselves. 
+// Implicit animation: suggested through values that are affected by the state, always have to watch for a value attached to it changing to trigger it
+// Animations also become functions of the state, just like the views themselves.
 
 import SwiftUI
 
@@ -46,7 +46,17 @@ struct ContentView: View {
             //do nothing
         }.RedbuttonStyle()
         .scaleEffect(animationScaleAmount)
-        .animation(.default, value: animationScaleAmount)
+        // default is .easeInOut effect
+        //.animation(.default, value: animationScaleAmount)
+        
+        //Other types of animation
+        
+        //easeOut effect that completes in 2 seconds
+        //.delay. .repeatCount, or .repeatForver modifier can be applied to the animation modifer itself
+        .animation(.easeOut(duration: 2).repeatCount(3), value: animationScaleAmount)
+        
+        //interpolatingSpring effect with stiffness and damping (how bouncy it is, lower value means more bouncy)
+        //.animation(.interpolatingSpring(stiffness: 100, damping: 1), value: animationScaleAmount)
         
         
         
