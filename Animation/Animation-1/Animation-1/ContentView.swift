@@ -10,7 +10,10 @@
 
 // Animation can be binded to any data, even booleans because the animation is not inventing any new values for the transition, if you print out the values for button increase animation, it goes from 1.0 to 2.0 rather than 1.0 -> 1.5 -> 2.0, so with this logic animation can be applied to true -> false change as well
 
-// Implicit animation can take places by setting the animation on a view and implicitly animating it with a state change OR setting a change in state and changing the view without the view havin any prior knowledge about the change 
+// Implicit animation can take places by setting the animation on a view and implicitly animating it with a state change OR setting a change in state and changing the view without the view havin any prior knowledge about the change
+
+
+// Explicit animation: does not require a particular value or state to change, the animation occurs no matter what as soon as thething it is attached to changes. Usually with withAnimation() function
 
 import SwiftUI
 
@@ -42,10 +45,14 @@ struct ContentView: View {
     @State private var animationScaleAmount = 1.0
     @State private var foreverRippleEffect = 1.0
     
+    @State private var animationRotationAmount = 0.0
+    
     var body: some View {
         
         
         VStack{
+            
+            Spacer()
             
             //Scale effect with implicit animation applied to this button
             //Every time button tapped -> animationScaleAmount increases by one, gets passed to .scaleEffect and .animation to make it happen
@@ -70,8 +77,21 @@ struct ContentView: View {
             Spacer()
             
             Button("Tap Me"){
-                //do nothing
+                
+                //Explicit animation of rotation when button is pressed
+//                withAnimation{
+//                    animationRotationAmount+=360
+//                }
+                
+                // withAnimation can also have other animation add ons as parameter:
+                withAnimation(.interpolatingSpring(stiffness: 5, damping: 1)){
+                    animationRotationAmount+=360
+                }
+                
             }.RedbuttonStyle()
+            //
+            .rotation3DEffect(.degrees(animationRotationAmount), axis: (x: 0, y: 1, z: 0))
+
             //Cretes a ripple effect as an overlay around the red button when tapped
                 .overlay(
                     Circle()
