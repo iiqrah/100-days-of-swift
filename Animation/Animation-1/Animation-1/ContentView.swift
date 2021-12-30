@@ -15,6 +15,8 @@
 
 // Explicit animation: does not require a particular value or state to change, the animation occurs no matter what as soon as thething it is attached to changes. Usually with withAnimation() function
 
+// Modifier order matters, holds true for animation modifiers as well!
+
 import SwiftUI
 
 
@@ -46,6 +48,9 @@ struct ContentView: View {
     @State private var foreverRippleEffect = 1.0
     
     @State private var animationRotationAmount = 0.0
+    
+    @State private var animationEnabled = false
+
     
     var body: some View {
         
@@ -108,6 +113,20 @@ struct ContentView: View {
                 .onAppear {
                     foreverRippleEffect = 2
                 }
+            
+            
+            Button("Tap Me") {
+                animationEnabled.toggle()
+            }
+            .frame(width: 200, height: 200)
+            .background(animationEnabled ? .blue : .red)
+            // animation can also have type of nil to start off with disabled animation
+            // multiple animation modifiers can be used with different parameters
+            .animation(.default, value: animationEnabled)
+            .foregroundColor(.white)
+            .clipShape(RoundedRectangle(cornerRadius: animationEnabled ? 60 : 0))
+            .animation(.interpolatingSpring(stiffness: 10, damping: 1), value: animationEnabled)
+        
             
             Spacer()
         }
