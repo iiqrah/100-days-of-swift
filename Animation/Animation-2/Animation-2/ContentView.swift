@@ -59,13 +59,16 @@ struct ContentView: View {
             
             VStack {
                         Button("Tap Me") {
-                            isShowingRed.toggle()
+                            withAnimation {
+                                isShowingRed.toggle()
+                            }
                         }
                 
                     if isShowingRed {
                         Rectangle()
                             .fill(.red)
                             .frame(width: 200, height: 200)
+                            .transition(.scale)
                     }
                 
                 }
