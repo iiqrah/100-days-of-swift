@@ -30,6 +30,17 @@ struct ContentView: View {
     @State private var userScore = 0
     @State private var questionCount = 1
     @State private var reachedQuestionLimit = false
+    
+    @State private var isCorrect = false
+    @State private var isWrong = false
+
+    @State private var isFaded = false
+    @State private var isScaled = false
+
+    
+    @State private var selectedFlag = 0
+
+
     let questionLimit = 8
     
     
@@ -76,13 +87,25 @@ struct ContentView: View {
                           ForEach (0 ..< 3)
                            { flagIndex in
                                Button {
-                                   buttonResult(flagIndex)
+                                   
+                                   withAnimation{
+                                       buttonResult(flagIndex)
+                                   }
+    
                                } label: {
                                Image(countries[flagIndex])
                                    .renderingMode(.original)
                                    .clipShape(Capsule())
                                    .shadow(radius: 5)
+                                   .rotation3DEffect(.degrees(isCorrect && selectedFlag == flagIndex ? 360 : 0), axis: (x: 0, y: 1, z: 0))
+                                   .rotation3DEffect(.degrees(isWrong && selectedFlag == flagIndex ? 360 : 0), axis: (x: 0, y: -1, z: 0))
+                                   .opacity(isFaded && selectedFlag != flagIndex ? 0.25 : 1)
+                                   .scaleEffect(isScaled && selectedFlag != flagIndex ? 0 : 1 )
+
+
+
                                }
+
                            }.alert(resultMessage, isPresented: $reachedQuestionLimit) {
                                Button("Play Again", action: resetGame)
                            } message: {
@@ -93,6 +116,7 @@ struct ContentView: View {
                     .padding(.vertical, 20)
                     .background(.regularMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
+
                     
                     
                     Spacer()
@@ -115,12 +139,19 @@ struct ContentView: View {
     }
     
     func buttonResult(_ buttonTapped: Int){
+        
+        selectedFlag = buttonTapped
+        isFaded = true
+        isScaled = true
+        
         if (buttonTapped == correctAnswer)
         {
+            isCorrect = true
             resultMessage = "Correct"
             userScore+=1
         }
         else{
+            isWrong = true
             resultMessage = "Wrong, that's the flag of \(countries[buttonTapped])"
             userScore-=1
         }
@@ -142,6 +173,15 @@ struct ContentView: View {
         questionCount += 1
         countries.shuffle()
         correctAnswer = Int.random(in: 0...2)
+        
+        isCorrect = false
+        isWrong = false
+
+        isFaded = false
+        isScaled = false
+
+
+
         
     }
     
