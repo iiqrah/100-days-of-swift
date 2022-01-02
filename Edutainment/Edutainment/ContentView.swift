@@ -17,6 +17,8 @@ struct ContentView: View {
     
     var questionCountOptions = [5, 10, 15, 20]
     @State private var questionCountSelected = 5
+    @State private var questionCount = 1
+
     
     
     var body: some View {
@@ -27,7 +29,15 @@ struct ContentView: View {
                 
                 VStack{
                     
-                    Text("Helloooo!!!")
+                    
+                    
+                    Text("\(questionCount) / \(questionCountSelected)")
+                    
+                    
+                    Button("Next question"){
+                        nextQuestion()
+                    }
+                    
                     
                     Button("Game Settings"){
                         gameSettings()
@@ -94,6 +104,25 @@ struct ContentView: View {
     
     func startGame(){
         isGameScreenShown = true
+        
+    }
+    
+    
+    
+    func nextQuestion() {
+        
+        if (questionCountSelected < questionCountSelected) {
+            questionCount += 1
+        }
+        
+        else{
+            newGame()
+        }
+        
+    }
+    
+    func newGame(){
+        
         
     }
     
