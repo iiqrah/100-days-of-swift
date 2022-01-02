@@ -9,12 +9,99 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State private var isGameScreenShown = false
+    @State private var isSettingsScreenShown = false
+
+    
+    @State private var tablesSelected = 2
+    
+    var questionCountOptions = [5, 10, 15, 20]
+    @State private var questionCountSelected = 5
+    
+    
     var body: some View {
         
-                Text("Hello, World!")
-        
-
+        NavigationView{
+            
+            if isGameScreenShown {
+                
+                VStack{
+                    
+                    Text("Helloooo!!!")
+                    
+                    Button("Game Settings"){
+                        gameSettings()
+                    }
+                    
+                    
+                }
+                
+                
+                    .navigationTitle("Let's Play")
+                
+            }
+            
+            else {
+                
+                VStack{
+                    
+                    Spacer()
+                    
+                    Section {
+                        Stepper("Which multiplication table?", value: $tablesSelected, in: 2...12)
+                        Text("Tables selected \(tablesSelected)")
+                        
+                    }
+                    
+                    Spacer()
+                    
+                    Section {
+                        
+                        HStack{
+                            Text("How many questions?")
+                            Picker("How many questions?", selection: $questionCountSelected) {
+                                ForEach(questionCountOptions, id: \.self) {
+                                    Text("\($0)")
+                                }
+                            }.pickerStyle(SegmentedPickerStyle())
+                        }
+                        //Text("Number of questions selected \(questionCountSelected)")
+                        
+                    }
+                    
+                    Spacer()
+                    
+                    Button("Start Game"){
+                        startGame()
+                    }
+                    
+                    Spacer()
+                
+                
+            }
+                .padding(.all)
+                .navigationTitle("Game Settings")
+           
+            }
+            
         }
+        
+        
+        
+        
+    }
+    
+    
+    func startGame(){
+        isGameScreenShown = true
+        
+    }
+    
+    func gameSettings(){
+        isSettingsScreenShown = true
+        isGameScreenShown = false
+        
+    }
     
 }
 
