@@ -13,6 +13,9 @@ struct ContentView: View {
     @State private var cardDragAmount = CGSize.zero
     @State private var textDragAmount = CGSize.zero
     
+    @State private var isShowingRed = false
+
+    
     var body: some View {
         
         VStack{
@@ -52,6 +55,20 @@ struct ContentView: View {
                 )
             
         Spacer()
+            
+            
+            VStack {
+                        Button("Tap Me") {
+                            isShowingRed.toggle()
+                        }
+                
+                    if isShowingRed {
+                        Rectangle()
+                            .fill(.red)
+                            .frame(width: 200, height: 200)
+                    }
+                
+                }
             
         }
         
