@@ -14,7 +14,7 @@ struct Question {
 
 struct ContentView: View {
     
-    @State private var isGameScreenShown = false
+    @State private var isGameScreenShown = true
     @State private var isSettingsScreenShown = false
 
     
@@ -31,7 +31,17 @@ struct ContentView: View {
     
     @State private var answer = 0
     
+    var question: String {
+        if questionArray.isEmpty {
+               return "2 x 4"
+           } else {
+               return questionArray[questionNumber].question
+           }
+       }
+    
     @State private var questionArray = [Question]()
+    
+    @State private var questionNumber = 0
 
 
     
@@ -51,7 +61,7 @@ struct ContentView: View {
                     Spacer()
                     
                     
-                    Text("2 x 5")
+                    Text("\(question)")
                     
                     
                     Spacer()
@@ -201,6 +211,8 @@ struct ContentView: View {
         
         
         print(questionArray)
+        print(questionArray[0])
+        print(questionArray[0].question)
                          
         
     }
@@ -208,6 +220,8 @@ struct ContentView: View {
     
     
     func nextQuestion() {
+        
+        questionNumber += 1
         
 
         
