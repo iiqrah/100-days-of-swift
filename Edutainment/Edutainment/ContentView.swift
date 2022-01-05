@@ -7,9 +7,14 @@
 
 import SwiftUI
 
+struct Question {
+    var question: String
+    var answer: Int
+}
+
 struct ContentView: View {
     
-    @State private var isGameScreenShown = true
+    @State private var isGameScreenShown = false
     @State private var isSettingsScreenShown = false
 
     
@@ -25,6 +30,8 @@ struct ContentView: View {
     @State private var questionCount = 1
     
     @State private var answer = 0
+    
+    @State private var questionArray = [Question]()
 
 
     
@@ -71,6 +78,7 @@ struct ContentView: View {
                         
                         
                         Button("Restart"){
+                            newGame()
                             gameSettings()
                         }
                         
@@ -161,6 +169,39 @@ struct ContentView: View {
     
     func startGame(){
         isGameScreenShown = true
+        generateQuestions()
+        
+    }
+    
+    
+    func generateQuestions() {
+        
+        //tablesSelected, questionCountSelected, difficultySelected
+        
+        var question = ""
+        var answer = 1
+        var multiplier = 1
+        var multiplierRange = 5
+        
+        if difficultySelected == "Medium"{multiplierRange = 10}
+        
+        else if difficultySelected == "Hard"{multiplierRange = 20}
+        
+        
+        for _ in 1...questionCountSelected{
+            
+            multiplier = Int.random(in: 0...multiplierRange)
+            question = "\(tablesSelected) x \(multiplier)"
+            answer = tablesSelected * multiplier
+            
+            let member = Question(question: question, answer: answer)
+            
+            questionArray.append(member)
+        }
+        
+        
+        print(questionArray)
+                         
         
     }
     
@@ -168,19 +209,14 @@ struct ContentView: View {
     
     func nextQuestion() {
         
-        if (questionCountSelected < questionCountSelected) {
-            questionCount += 1
-        }
-        
-        else{
-            newGame()
-        }
+
         
     }
     
     func newGame(){
         
-        
+        questionArray.removeAll()
+   
     }
     
     func gameSettings(){
