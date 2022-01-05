@@ -9,15 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var isGameScreenShown = false
+    @State private var isGameScreenShown = true
     @State private var isSettingsScreenShown = false
 
     
     @State private var tablesSelected = 2
     
-    var questionCountOptions = [5, 10, 15, 20]
+    var questionCountOptions = [5, 10, 20]
     @State private var questionCountSelected = 5
+    
+    var difficultyOptions = ["Easy", "Medium", "Hard"]
+    @State private var difficultySelected = "Easy"
+    
+    
     @State private var questionCount = 1
+    
+    @State private var answer = 0
+
 
     
     
@@ -33,15 +41,46 @@ struct ContentView: View {
                     
                     Text("\(questionCount) / \(questionCountSelected)")
                     
+                    Spacer()
                     
-                    Button("Next question"){
-                        nextQuestion()
+                    
+                    Text("2 x 5")
+                    
+                    
+                    Spacer()
+                    
+
+                    TextField("Answer", value: $answer, format: .number)
+                    .keyboardType(.numberPad)
+                    .multilineTextAlignment(.center)
+                    
+                    
+                    Spacer()
+
+                    
+                    
+                    HStack{
+                        
+                        Spacer()
+                        
+                        Button("Next"){
+                            nextQuestion()
+                        }
+                        
+                        Spacer()
+                        
+                        
+                        Button("Restart"){
+                            gameSettings()
+                        }
+                        
+                        
+                        Spacer()
+  
                     }
                     
                     
-                    Button("Game Settings"){
-                        gameSettings()
-                    }
+                    Spacer()
                     
                     
                 }
@@ -69,8 +108,26 @@ struct ContentView: View {
                         
                         HStack{
                             Text("How many questions?")
-                            Picker("How many questions?", selection: $questionCountSelected) {
+                            Picker("Choose number of questions", selection: $questionCountSelected) {
                                 ForEach(questionCountOptions, id: \.self) {
+                                    Text("\($0)")
+                                }
+                            }.pickerStyle(SegmentedPickerStyle())
+                        }
+                        //Text("Number of questions selected \(questionCountSelected)")
+                        
+                    }
+                    
+                    
+                    Spacer()
+                    
+                    
+                    Section {
+                        
+                        HStack{
+                            Text("Which difficulty level?")
+                            Picker("Choose difficulty of questions", selection: $difficultySelected) {
+                                ForEach(difficultyOptions, id: \.self) {
                                     Text("\($0)")
                                 }
                             }.pickerStyle(SegmentedPickerStyle())
