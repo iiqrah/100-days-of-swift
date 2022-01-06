@@ -14,7 +14,11 @@ struct Question {
 
 struct ContentView: View {
     
-    @State private var isGameScreenShown = true
+    //@State private var isShowingResult = false
+    @State private var isCheckAnswerDisabled = false
+    @State private var isQuestionLimitReached = false
+    
+    @State private var isGameScreenShown = false
     @State private var isSettingsScreenShown = false
 
     
@@ -29,10 +33,10 @@ struct ContentView: View {
     
     @State private var questionCount = 1
     
-    @State private var answer = 0
+    @State private var answerLabel = ""
     
     var question: String {
-        if questionArray.isEmpty {
+        if questionArray.isEmpty || questionNumber >= questionArray.count{
                return "2 x 4"
            } else {
                return questionArray[questionNumber].question
@@ -42,6 +46,8 @@ struct ContentView: View {
     @State private var questionArray = [Question]()
     
     @State private var questionNumber = 0
+    
+    @State private var resultMessage = ""
 
 
     
@@ -61,31 +67,60 @@ struct ContentView: View {
                     Spacer()
                     
                     
-                    Text("\(question)")
-                    
-                    
-                    Spacer()
-                    
-
-                    TextField("Answer", value: $answer, format: .number)
-                    .keyboardType(.numberPad)
-                    .multilineTextAlignment(.center)
-                    
-                    
-                    Spacer()
-
-                    
-                    
-                    HStack{
+                    VStack{
                         
                         Spacer()
                         
-                        Button("Next"){
-                            nextQuestion()
+                        Text("\(question)")
+                        
+                        
+                        Spacer()
+                        
+
+                        TextField("Type your answer here", text: $answerLabel)
+                        .keyboardType(.numberPad)
+                        .multilineTextAlignment(.center)
+                        
+                        
+                        Spacer()
+                        
+                        Text("\(resultMessage)")
+                        
+                        
+                    }
+                    
+                    
+                    
+                    Spacer()
+                    
+                    VStack{
+                        
+                        Spacer()
+                        
+                        
+                        HStack{
+                            
+                            Spacer()
+                            
+                            Button("Check Answer"){
+                                checkAnswer(questionNumber)
+                            }.disabled(isCheckAnswerDisabled)
+                            
+                            Spacer()
+                            
+                            
+                            
+                            
+                            Button("Next Question"){
+                                nextQuestion()
+                            }
+                            
+                            
+                            Spacer()
+      
                         }
                         
                         Spacer()
-                        
                         
                         Button("Restart"){
                             newGame()
@@ -94,8 +129,17 @@ struct ContentView: View {
                         
                         
                         Spacer()
-  
+                        
+                        
+                        
+                    }.alert(resultMessage, isPresented: $isQuestionLimitReached) {
+                        Button("Play Again", action: newGame)
+                    } message: {
+                        Text("Want to practise some more?")
                     }
+
+                    
+                    
                     
                     
                     Spacer()
@@ -210,20 +254,55 @@ struct ContentView: View {
         }
         
         
-        print(questionArray)
-        print(questionArray[0])
-        print(questionArray[0].question)
+        //print(questionArray)
+        //print(questionArray[0])
+        //print(questionArray[0].question)
                          
         
     }
     
     
+    func checkAnswer(_ questionNumber: Int){
+        
+        let answer = Int(answerLabel)
+        
+        if answer == questionArray[questionNumber].answer{
+            resultMessage = "Correct!"
+            isCheckAnswerDisabled = true
+        }
+        
+        else{
+            
+            resultMessage = "That's incorrect, try again :)"
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    func questionCounter(){
+        if questionCount == questionCountSelected{
+            isQuestionLimitReached = true
+            resultMessage = "Yay! Done with all questions :)"
+        }
+    }
+    
+    
     
     func nextQuestion() {
-        
+        answerLabel = ""
+        resultMessage = ""
+        isCheckAnswerDisabled = false
         questionNumber += 1
-        
-
+        questionCount += 1
+        questionCounter()
         
     }
     
