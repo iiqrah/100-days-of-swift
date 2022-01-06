@@ -11,6 +11,8 @@ struct AddView: View {
     
     @ObservedObject var expenses: Expenses
     
+    @Environment(\.dismiss) var dismiss
+    
     @State private var name  = ""
     @State private var category  = "Personal"
     @State private var cost  = 0.0
@@ -24,9 +26,6 @@ struct AddView: View {
                 
                 TextField("Item Name: ", text: $name)
                 
-                
-                TextField("Item Category: ", text: $category)
-                
                 Picker("Item Category", selection: $category){
                     ForEach(categories, id: \.self){
                         Text($0)
@@ -37,10 +36,23 @@ struct AddView: View {
                 
                 TextField("Item Cost: ", value: $cost, format: .currency(code: "USD"))
                     .keyboardType(.decimalPad)
+                
+                
 
 
                 
-            }
+            }.navigationTitle("Add Item")
+                .toolbar{
+                    Button("Save"){
+                        
+                        let item = ExpenseItem(name: name, category: category, cost: cost)
+                        expenses.items.append(item)
+                        dismiss()
+                        
+                    }
+                }
+            
+            
             
         }
     }
