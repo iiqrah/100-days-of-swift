@@ -124,7 +124,7 @@ struct ContentView: View {
                         
                         Button("Restart"){
                             newGame()
-                            gameSettings()
+                            
                         }
                         
                         
@@ -307,16 +307,13 @@ struct ContentView: View {
     }
     
     func newGame(){
-        
-        questionArray.removeAll()
-   
-    }
-    
-    func gameSettings(){
         isSettingsScreenShown = true
         isGameScreenShown = false
-        
+        questionNumber = 0
+        questionCount = 1
+        questionArray.removeAll()
     }
+    
     
 }
 
