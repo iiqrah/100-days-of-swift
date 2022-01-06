@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct ExpenseItem {
-    
+//Add Identifiable protocol to remove it from ContentView file as SwiftUI now knows how to uniquiely identify each entity
+struct ExpenseItem  : Identifiable{
+    let id = UUID() //Generates a unique hex-decimal id
     let name: String
     let category: String
     let cost: Double
