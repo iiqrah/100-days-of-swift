@@ -20,7 +20,7 @@ struct ContentView: View {
                     
                     Text(item.name)
                     
-                }
+                }.onDelete(perform: removeItem)
             }
             .navigationTitle("iExpense")
             .toolbar{
@@ -35,6 +35,10 @@ struct ContentView: View {
             
             
         }
+    }
+    
+    func removeItem(at offsets:  IndexSet){
+        expenses.items.remove(atOffsets: offsets)
     }
 }
 
