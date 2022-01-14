@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AddItemView: View {
     
+    @ObservedObject var expenses: Expenses
+    
     @State private var name = ""
     
     @State private var type = "Personal"
@@ -41,6 +43,6 @@ struct AddItemView: View {
 
 struct AddItemView_Previews: PreviewProvider {
     static var previews: some View {
-        AddItemView()
+        AddItemView(expenses: Expenses())
     }
 }
