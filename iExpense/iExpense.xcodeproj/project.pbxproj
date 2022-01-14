@@ -13,6 +13,7 @@
 		CFC2F9D52791CF970077059E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFC2F9D42791CF970077059E /* Preview Assets.xcassets */; };
 		CFC2F9E02791D3CA0077059E /* Expenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC2F9DF2791D3CA0077059E /* Expenses.swift */; };
 		CFC2F9E22791D4110077059E /* ExpenseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC2F9E12791D4110077059E /* ExpenseItem.swift */; };
+		CFC2F9E42791F99F0077059E /* AddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC2F9E32791F99F0077059E /* AddItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		CFC2F9D42791CF970077059E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CFC2F9DF2791D3CA0077059E /* Expenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expenses.swift; sourceTree = "<group>"; };
 		CFC2F9E12791D4110077059E /* ExpenseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseItem.swift; sourceTree = "<group>"; };
+		CFC2F9E32791F99F0077059E /* AddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 				CFC2F9CD2791CF940077059E /* iExpenseApp.swift */,
 				CFC2F9E12791D4110077059E /* ExpenseItem.swift */,
 				CFC2F9CF2791CF940077059E /* ContentView.swift */,
+				CFC2F9E32791F99F0077059E /* AddItemView.swift */,
 				CFC2F9DF2791D3CA0077059E /* Expenses.swift */,
 				CFC2F9D12791CF970077059E /* Assets.xcassets */,
 				CFC2F9D32791CF970077059E /* Preview Content */,
@@ -147,6 +150,7 @@
 				CFC2F9D02791CF940077059E /* ContentView.swift in Sources */,
 				CFC2F9CE2791CF940077059E /* iExpenseApp.swift in Sources */,
 				CFC2F9E22791D4110077059E /* ExpenseItem.swift in Sources */,
+				CFC2F9E42791F99F0077059E /* AddItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
