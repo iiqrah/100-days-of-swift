@@ -36,6 +36,13 @@ struct AddItemView: View {
                 
                 
             }.navigationTitle("Add Item")
+            .toolbar{
+                    Button("Save"){
+                        let expense = ExpenseItem(name: name, type: type, amount: amount)
+                        
+                        expenses.items.append(expense)
+                    }
+                }
             
         }
     }
