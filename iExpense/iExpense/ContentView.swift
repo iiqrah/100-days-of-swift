@@ -102,7 +102,7 @@ struct ContentView: View {
             return .blue
         }
         
-        else if amount > 10{
+        else if amount >= 10{
             return .purple
         }
         
