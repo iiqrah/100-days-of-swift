@@ -15,30 +15,66 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-            
-            List{
-                
-                ForEach(expenses.items){ item in
+                List{
                     
-                    HStack{
+                    Section(header: Text("Personal Expenses")){
                         
-                        VStack(alignment: .leading){
-                            Text(item.name)
-                                .font(.headline)
-                            Text(item.type)
-                        }
+                        ForEach(expenses.items){ item in
+                            
+                            if item.type == "Personal" {
+                                
+                                HStack{
+                                    
+                                    VStack(alignment: .leading){
+                                        Text(item.name)
+                                            .font(.headline)
+                                        Text(item.type)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                                        .foregroundColor(amountColor(item.amount))
+                                    
+                                }
+                                
+                            }
+                            
                         
-                        Spacer()
-                        
-                        Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
-                            .foregroundColor(amountColor(item.amount))
+                        }.onDelete(perform: removeItems)
                         
                     }
                     
-                
-                
-                }.onDelete(perform: removeItems)
-            }
+                    
+                    Section(header: Text("Business Expenses")){
+                        
+                        ForEach(expenses.items){ item in
+                            
+                            if item.type == "Business" {
+                                
+                                HStack{
+                                    
+                                    VStack(alignment: .leading){
+                                        Text(item.name)
+                                            .font(.headline)
+                                        Text(item.type)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Text(item.amount, format: .currency(code: Locale.current.currencyCode ?? "USD"))
+                                        .foregroundColor(amountColor(item.amount))
+                                    
+                                }
+                                
+                            }
+                            
+                        
+                        }.onDelete(perform: removeItems)
+                        
+                    }
+                    
+                }
             .toolbar{
                 Button{
                     
