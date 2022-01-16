@@ -39,25 +39,49 @@ struct ContentView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 100, height: 100)
+                                .padding()
                             
-                            Text(mission.displayName)
-                                .font(.headline)
-                            Text(mission.formattedLaunchDate)
-                                .font(.caption)
-                            
-                            
-                            
+                            VStack{
+                                
+                                
+                                Text(mission.displayName)
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+
+                                Text(mission.formattedLaunchDate)
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.5))
+
+                                
+                                
+                            }
+                            .padding(.vertical)
+                            .frame(maxWidth: .infinity)
+                            .background(.lightBackground)
                             
                         }
-                        .frame(maxWidth: .infinity)
+                        
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.lightBackground)
+                        )
+                        
                         
                     }
                         
                     }
+                    
                     
                     
                 }
-            }.navigationTitle("Moonshot")
+                
+                .padding([.horizontal, .bottom])
+            }
+            
+            .navigationTitle("Moonshot")
+            .background(.darkBackground)
+            .preferredColorScheme(.dark)
             
         }
     }
