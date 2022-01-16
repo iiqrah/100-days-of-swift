@@ -10,7 +10,8 @@ import Foundation
 extension Bundle {
     
     //function take a file and returns a dictionary with key as id and value as Astronaut struct
-    func decode(_ file: String) -> [String: Astronaut]{
+    //converted this function into a generic
+    func decode<T: Codable>(_ file: String) -> T{
         
         //Try to get the file URL
         guard let url = self.url(forResource: file, withExtension: nil) else {
@@ -23,7 +24,7 @@ extension Bundle {
             fatalError("Failed to load \(file) from bundle")
         }
         
-        guard let loaded = try? JSONDecoder().decode([String: Astronaut].self, from: data) else{
+        guard let loaded = try? JSONDecoder().decode(T.self, from: data) else{
             
             fatalError("Failed to decode \(file) from bundle")
         }
