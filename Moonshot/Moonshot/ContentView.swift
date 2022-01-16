@@ -14,11 +14,52 @@ struct ContentView: View {
     
     //missions.json is an array
     let missions: [Mission] = Bundle.main.decode("missions.json")
+    
+    //To define an adaptive column layout
+    let columns = [GridItem(.adaptive(minimum: 150))]
 
 
     
     var body: some View {
-        Text("Count: \(missions.count)")
+        NavigationView{
+            
+            ScrollView{
+                LazyVGrid(columns: columns){
+                    
+                    ForEach(missions) { mission in
+                        
+                        NavigationLink{
+                            Text("Mission Detail")
+                        }
+                    label:{
+                        
+                        VStack{
+                            
+                            Image(mission.imageName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 100)
+                            
+                            Text(mission.displayName)
+                                .font(.headline)
+                            Text(mission.launchDate ?? "N/A")
+                                .font(.caption)
+                            
+                            
+                            
+                            
+                        }
+                        .frame(maxWidth: .infinity)
+                        
+                    }
+                        
+                    }
+                    
+                    
+                }
+            }.navigationTitle("Moonshot")
+            
+        }
     }
 }
 
