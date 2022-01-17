@@ -36,7 +36,7 @@ struct MissionDetailView: View {
                 
                         Text("Mission Crew: ")
                             .font(.title.bold())
-                            .padding(.bottom, 5)
+                            .padding(.top, 5)
                         
                         
                         
@@ -72,7 +72,7 @@ struct MissionDetailView: View {
                                                 .foregroundColor(.white)
                                                 .font(.headline)
                                             Text(member.role)
-                                                .foregroundColor(.secondary)
+                                                .foregroundColor((member.role == "Commander" || member.role == "Command Pilot") ? .red : .secondary)
                                             
                                         }
                                     }
