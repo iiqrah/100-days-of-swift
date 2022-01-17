@@ -48,7 +48,7 @@ struct MissionDetailView: View {
                                     
                                     NavigationLink{
                                         
-                                        Text("Astronaut Details")
+                                        AstronautDetailView(astronaut: member.astronaut)
                                         
                                         
                                     }
