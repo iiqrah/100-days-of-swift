@@ -19,23 +19,22 @@ struct ContentView: View {
     let columns = [GridItem(.adaptive(minimum: 150))]
     
     @State private var isShowingGrid = true
-
-
+    
+    
     
     var body: some View {
         NavigationView{
-               
-            ScrollView{
-                
-                
-                if isShowingGrid {
-                    GridLayout()
-                    } else {
-                        //ListLayout(astronauts: astronauts, missions: missions)
-                        Text("Showing List")
+            
+                Group{
+                    
+                    if isShowingGrid {
+                        GridLayout()
                     }
+                    else {
+                        ListLayout()
+                    }
+                }
                 
-            }
             
             .navigationTitle("Moonshot")
             .background(.darkBackground)
