@@ -33,26 +33,73 @@ struct MissionDetailView: View {
                     
                     VStack (alignment: .leading){
                         
-                        Text("\(mission.displayName) Highlights: ")
+                
+                        Text("Mission Crew: ")
+                            .font(.title.bold())
+                            .padding(.bottom, 5)
+                        
+                        
+                        
+                        
+                        ScrollView(.horizontal, showsIndicators: false){
+                            HStack{
+                                
+                                ForEach(crew, id: \.role){ member in
+                                    
+                                    NavigationLink{
+                                        
+                                        Text("Astronaut Details")
+                                        
+                                        
+                                    }
+                                label:{
+                                    
+                                    HStack{
+                                        
+                                        Image(member.astronaut.id)
+                                            .resizable()
+                                            .frame(width: 104, height: 72)
+                                            .clipShape(Capsule())
+                                            .overlay(
+                                                Capsule()
+                                                    .strokeBorder(.white, lineWidth: 1)
+                                            )
+                                        
+                                        
+                                        
+                                        VStack (alignment: .leading){
+                                            Text(member.astronaut.name)
+                                                .foregroundColor(.white)
+                                                .font(.headline)
+                                            Text(member.role)
+                                                .foregroundColor(.secondary)
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                        
+                        Rectangle()
+                            .frame(height: 2)
+                            .foregroundColor(.lightBackground)
+                            .padding(.vertical)
+                        
+                        
+                        
+                        Text("Mission Highlights: ")
                             .font(.title.bold())
                             .padding(.bottom, 5)
                         
                         Text(mission.description)
+                            .foregroundColor(.secondary)
+                        
                         
                         
                     } .padding(.horizontal)
                     
-                    
-                    ForEach(crew, id: \.role){ member in
-                        
-                        Text(member.astronaut.name)
-
-                    }
-                    
-                    
-                    
-                    
-                }.padding(.bottom)
+                } .padding(.bottom)
             }
             
         }
@@ -84,14 +131,14 @@ struct MissionDetailView_Previews: PreviewProvider {
     static let missions: [Mission] = Bundle.main.decode("missions.json")
     
     static let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
-
-
+    
+    
     
     static var previews: some View {
         
         //Forcing one of the mission detail views to show up in dark mode
         MissionDetailView(mission: missions[7], astronauts: astronauts)
             .preferredColorScheme(.dark)
-
+        
     }
 }
