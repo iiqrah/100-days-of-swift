@@ -20,34 +20,45 @@ struct ContentView: View {
     
     @State private var isShowingGrid = true
     
-    
-    
     var body: some View {
         NavigationView{
             
-                Group{
-                    
-                    if isShowingGrid {
-                        GridLayout()
-                    }
-                    else {
-                        ListLayout()
-                    }
-                }
+            Group{
                 
+                if isShowingGrid {
+                    GridLayout()
+                }
+                else {
+                    ListLayout()
+                }
+            }
             
             .navigationTitle("Moonshot")
             .background(.darkBackground)
             .preferredColorScheme(.dark)
             
             .toolbar{
-                Button("Press Me"){
-                    
+                
+                Button {
                     isShowingGrid.toggle()
-                    
+                } label: {
+                    Image(systemName: toggleIcon())
                 }
             }
             
+        }
+    }
+    
+    func toggleIcon() -> String{
+        if isShowingGrid{
+            
+            return "list.dash"
+            
+        }
+        
+        else{
+            
+            return "square.grid.2x2"
         }
     }
 }
