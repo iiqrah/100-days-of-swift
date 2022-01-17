@@ -31,7 +31,17 @@ struct MissionDetailView: View {
                         .frame(maxWidth: geometry.size.width * 0.6)
                         .padding(.top)
                     
+                    
+                    Text("Launch Date: \(mission.formattedLaunchDate)")
+                        .font(.title3)
+                    
                     VStack (alignment: .leading){
+                        
+                        
+                        Rectangle()
+                            .frame(height: 2)
+                            .foregroundColor(.lightBackground)
+                            .padding(.vertical)
                         
                 
                         Text("Mission Crew: ")
