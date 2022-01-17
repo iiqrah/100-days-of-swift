@@ -12,17 +12,39 @@ struct MissionDetailView: View {
     let mission: Mission
     
     var body: some View {
-        ScrollView{
-            VStack{
-                
-                Image(mission.imageName)
-                
-                Text(mission.displayName)
-                
-                Text(mission.description)
-                
+        GeometryReader{ geometry in
+            
+            ScrollView{
+                VStack{
+                    
+                    Image(mission.imageName)
+                    
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: geometry.size.width * 0.6)
+                        .padding(.top)
+                    
+                    VStack (alignment: .leading){
+                        
+                        Text("\(mission.displayName) Highlights: ")
+                            .font(.title.bold())
+                            .padding(.bottom, 5)
+                        
+                        Text(mission.description)
+                        
+                        
+                    } .padding(.horizontal)
+                    
+                    
+                    
+                    
+                }.padding(.bottom)
             }
+            
         }
+        .navigationTitle(mission.displayName)
+        .navigationBarTitleDisplayMode(.inline)
+        .background(.darkBackground)
     }
 }
 
