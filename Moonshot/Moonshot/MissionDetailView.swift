@@ -18,6 +18,9 @@ struct MissionDetailView: View {
     
     let mission: Mission
     
+    let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
+
+    
     var body: some View {
         GeometryReader{ geometry in
             
@@ -31,73 +34,30 @@ struct MissionDetailView: View {
                         .frame(maxWidth: geometry.size.width * 0.6)
                         .padding(.top)
                     
-                    
                     Text("Launch Date: \(mission.formattedLaunchDate)")
                         .font(.title3)
                     
+                    
                     VStack (alignment: .leading){
-                        
                         
                         Rectangle()
                             .frame(height: 2)
                             .foregroundColor(.lightBackground)
                             .padding(.vertical)
                         
-                
+                        
                         Text("Mission Crew: ")
                             .font(.title.bold())
                             .padding(.top, 5)
                         
-                        
-                        
-                        
-                        ScrollView(.horizontal, showsIndicators: false){
-                            HStack{
-                                
-                                ForEach(crew, id: \.role){ member in
-                                    
-                                    NavigationLink{
-                                        
-                                        AstronautDetailView(astronaut: member.astronaut)
-                                        
-                                        
-                                    }
-                                label:{
-                                    
-                                    HStack{
-                                        
-                                        Image(member.astronaut.id)
-                                            .resizable()
-                                            .frame(width: 104, height: 72)
-                                            .clipShape(Capsule())
-                                            .overlay(
-                                                Capsule()
-                                                    .strokeBorder(.white, lineWidth: 1)
-                                            )
-                                        
-                                        
-                                        
-                                        VStack (alignment: .leading){
-                                            Text(member.astronaut.name)
-                                                .foregroundColor(.white)
-                                                .font(.headline)
-                                            Text(member.role)
-                                                .foregroundColor((member.role == "Commander" || member.role == "Command Pilot") ? .red : .secondary)
-                                            
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                        MissionCrewHView(mission: mission, astronauts: astronauts)
                         
                         Rectangle()
                             .frame(height: 2)
                             .foregroundColor(.lightBackground)
                             .padding(.vertical)
                         
-                        
-                        
+  
                         Text("Mission Highlights: ")
                             .font(.title.bold())
                             .padding(.bottom, 5)
