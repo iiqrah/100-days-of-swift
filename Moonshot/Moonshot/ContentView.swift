@@ -17,13 +17,25 @@ struct ContentView: View {
     
     //To define an adaptive column layout
     let columns = [GridItem(.adaptive(minimum: 150))]
+    
+    @State private var isShowingGrid = true
 
 
     
     var body: some View {
         NavigationView{
-            
+               
             ScrollView{
+                
+                
+                if isShowingGrid {
+                        //GridLayout(astronauts: astronauts, missions: missions)
+                    Text("Showing Grid")
+                    } else {
+                        //ListLayout(astronauts: astronauts, missions: missions)
+                        Text("Showing List")
+                    }
+                
                 LazyVGrid(columns: columns){
                     
                     ForEach(missions) { mission in
@@ -82,6 +94,14 @@ struct ContentView: View {
             .navigationTitle("Moonshot")
             .background(.darkBackground)
             .preferredColorScheme(.dark)
+            
+            .toolbar{
+                Button("Press Me"){
+                    
+                    isShowingGrid.toggle()
+                    
+                }
+            }
             
         }
     }
