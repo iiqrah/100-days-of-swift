@@ -18,26 +18,23 @@ struct ContentView: View {
     //To define an adaptive column layout
     let columns = [GridItem(.adaptive(minimum: 150))]
     
-    @State private var isShowingGrid = true
+    @State private var isShowingGrid = false
     
     var body: some View {
         NavigationView{
-            
-            Group{
-                
-                if isShowingGrid {
-                    GridLayout()
-                }
-                else {
-                    ListLayout()
-                }
-            }
-            
-            .navigationTitle("Moonshot")
-            .background(.darkBackground)
-            .preferredColorScheme(.dark)
-            
-            .toolbar{
+                Group{
+                 
+                 if isShowingGrid {
+                     GridLayout()
+                 }
+                 else {
+                     ListLayout()
+                 }
+                 
+                 
+             }
+
+                .toolbar{
                 
                 Button {
                     isShowingGrid.toggle()
@@ -45,7 +42,9 @@ struct ContentView: View {
                     Image(systemName: toggleIcon())
                 }
             }
-            
+            .navigationTitle("Moonshot")
+            .preferredColorScheme(.dark)
+            .background(.darkBackground)
         }
     }
     
