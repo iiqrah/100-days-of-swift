@@ -86,31 +86,44 @@ struct ContentView: View {
                 
                 //Shapes: reusability
                 
-                HStack{
+                VStack{
                     
-                    Spacer()
-                    
-                    
-                    Triangle()
-                    //.fill(.red)
-                    .stroke(.red, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
+                    HStack{
+                        
+                        Spacer()
+                        
+                        
+                        Triangle()
+                        //.fill(.red)
+                        .stroke(.red, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
 
-                    .frame(width: 100, height: 100)
-                    
-                    
-                    Spacer()
-                    
-                    //Arc
-                    Arc(startAngle: .degrees(0), endAngle: .degrees(140), clockwise: true)
-                        .stroke(.blue, lineWidth: 10)
                         .frame(width: 100, height: 100)
+                        
+                        
+                        Spacer()
+                        
+                        //Arc
+                        Arc(startAngle: .degrees(0), endAngle: .degrees(140), clockwise: true)
+                            .stroke(.blue, lineWidth: 10)
+                            .frame(width: 100, height: 100)
+                        
+                        
+                        Spacer()
+                        
+                        
+                        
+                    }
                     
-                    
-                    Spacer()
-                    
+                    HStack{
+                        
+                        Circle()
+                        .stroke(.blue, lineWidth: 40)
+                        
+                        Circle()
+                            .strokeBorder(.blue, lineWidth: 40)
+                    }
                     
                 }
-                
                 
                 
                 
