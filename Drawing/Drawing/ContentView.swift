@@ -22,11 +22,22 @@ struct Triangle: Shape{
     }
 }
 
-struct Arc: Shape{
+struct Arc:InsettableShape{
     
     var startAngle: Angle
     var endAngle: Angle
     var clockwise: Bool
+    
+    //to make arc conform to InsettableShape
+    var insetAmount = 0.0
+    
+    
+    func inset(by amount: CGFloat) -> some InsettableShape {
+        var arc = self
+        arc.insetAmount += amount
+        return arc
+    }
+
     
     func path(in rect: CGRect) -> Path {
         
@@ -36,8 +47,9 @@ struct Arc: Shape{
     
     
         var path = Path()
-        
-        path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: rect.width / 2, startAngle: modifiedStart, endAngle: modifiedEnd, clockwise: !clockwise)
+                
+        path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: rect.width / 2 - insetAmount, startAngle: modifiedStart, endAngle: modifiedEnd, clockwise: !clockwise)
+
 
         
         
@@ -58,14 +70,14 @@ struct ContentView: View {
                 //triangle drawn anti-clockwise
                 //CG stands for Core Graphics
                 Path { path in
-                    path.move(to: CGPoint(x: 100, y: 300))
-                    path.addLine(to: CGPoint(x: 200, y: 100))
-                    path.addLine(to: CGPoint(x: 300, y: 300))
-                    path.addLine(to: CGPoint(x: 100, y: 300))
-                    
-                    path.addLine(to: CGPoint(x: 100, y: 500))
-                    path.addLine(to: CGPoint(x: 300, y: 500))
-                    path.addLine(to: CGPoint(x: 300, y: 300))
+                    path.move(to: CGPoint(x: 50, y: 250))
+                    path.addLine(to: CGPoint(x: 150, y: 50))
+                    path.addLine(to: CGPoint(x: 250, y: 250))
+                    path.addLine(to: CGPoint(x: 50, y: 250))
+//Square
+//                    path.addLine(to: CGPoint(x: 50, y: 450))
+//                    path.addLine(to: CGPoint(x: 250, y: 450))
+//                    path.addLine(to: CGPoint(x: 250, y: 250))
 
                     //make all the lines joint
                     //path.closeSubpath()
@@ -114,17 +126,37 @@ struct ContentView: View {
                         
                     }
                     
-                    HStack{
-                        
-                        Circle()
-                        .stroke(.blue, lineWidth: 40)
-                        
-                        Circle()
-                            .strokeBorder(.blue, lineWidth: 40)
-                    }
-                    
+   
                 }
                 
+                
+                
+            }
+            
+            
+            Section{
+                Spacer()
+                
+                HStack{
+                    
+                    Circle()
+                        .stroke(.indigo, lineWidth: 30)
+                    
+                    Circle()
+                        .strokeBorder(.purple, lineWidth: 30)
+                }
+                
+                
+                
+                
+                HStack{
+                    
+                    Arc(startAngle: .degrees(-90), endAngle: .degrees(90), clockwise: true)
+                    
+                        .strokeBorder(.green, lineWidth: 30)
+                        .frame(width: 200, height: 100)
+
+                }
                 
                 
             }
