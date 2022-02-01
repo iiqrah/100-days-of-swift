@@ -22,6 +22,30 @@ struct Triangle: Shape{
     }
 }
 
+struct Arc: Shape{
+    
+    var startAngle: Angle
+    var endAngle: Angle
+    var clockwise: Bool
+    
+    func path(in rect: CGRect) -> Path {
+        
+        let rotationAdjustment = Angle.degrees(90)
+        let modifiedStart = startAngle - rotationAdjustment
+        let modifiedEnd = endAngle - rotationAdjustment
+    
+    
+        var path = Path()
+        
+        path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: rect.width / 2, startAngle: modifiedStart, endAngle: modifiedEnd, clockwise: !clockwise)
+
+        
+        
+        
+        return path
+    }
+}
+
 struct ContentView: View {
     var body: some View {
         
@@ -62,11 +86,34 @@ struct ContentView: View {
                 
                 //Shapes: reusability
                 
-                Triangle()
-                //.fill(.red)
-                .stroke(.red, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
+                HStack{
+                    
+                    Spacer()
+                    
+                    
+                    Triangle()
+                    //.fill(.red)
+                    .stroke(.red, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
 
-                .frame(width: 300, height: 300)
+                    .frame(width: 100, height: 100)
+                    
+                    
+                    Spacer()
+                    
+                    //Arc
+                    Arc(startAngle: .degrees(0), endAngle: .degrees(140), clockwise: true)
+                        .stroke(.blue, lineWidth: 10)
+                        .frame(width: 100, height: 100)
+                    
+                    
+                    Spacer()
+                    
+                    
+                }
+                
+                
+                
+                
             }
             
             
