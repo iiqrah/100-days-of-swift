@@ -301,25 +301,62 @@ struct ContentView: View {
         //Day 45 - Project 9, part 3
         VStack{
             
+//            Section{
+//
+//
+//                ZStack {
+//                    Image("singapore")
+//
+//                    Rectangle()
+//                        .fill(.red)
+//                        .blendMode(.multiply)
+//                }
+//                .frame(width: 400, height: 300)
+//                .clipped()
+//
+//
+//
+//                Image("singapore")
+//                        .colorMultiply(.green)
+//
+//            }
+            
+            
             Section{
                 
                 
-                ZStack {
-                    Image("singapore")
+                VStack {
+                            ZStack {
+                                Circle()
+                                    .fill(.red)
+                                    .frame(width: 200 * amount)
+                                    .offset(x: -50, y: -80)
+                                    .blendMode(.screen)
 
-                    Rectangle()
-                        .fill(.red)
-                        .blendMode(.multiply)
-                }
-                .frame(width: 400, height: 300)
-                .clipped()
+                                Circle()
+                                    .fill(.green)
+                                    .frame(width: 200 * amount)
+                                    .offset(x: 50, y: -80)
+                                    .blendMode(.screen)
+
+                                Circle()
+                                    .fill(.blue)
+                                    .frame(width: 200 * amount)
+                                    .blendMode(.screen)
+                            }
+                            .frame(width: 300, height: 300)
+
+                            Slider(value: $amount)
+                                .padding()
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(.black)
                 
                 
                 
-                Image("singapore")
-                        .colorMultiply(.green)
                 
             }
+            
             
             
             
