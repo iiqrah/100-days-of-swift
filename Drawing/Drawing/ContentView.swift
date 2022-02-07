@@ -131,6 +131,10 @@ struct ContentView: View {
     @State private var petalWidth = 100.0
     
     @State private var colorCycle = 0.0
+    
+    
+    @State private var amount = 0.0
+
 
     
     var body: some View {
@@ -242,9 +246,9 @@ struct ContentView: View {
 //
 //        }
         
-//        
+//
 //        //       //Day 44 - Project 9, part 2
-//        
+//
 //        VStack{
 //            Section{
 //                VStack {
@@ -254,19 +258,19 @@ struct ContentView: View {
 //                    Text("Offset")
 //                    Slider(value: $petalOffset, in: -40...40)
 //                        .padding([.horizontal, .bottom])
-//                    
+//
 //                    Text("Width")
 //                    Slider(value: $petalWidth, in: 0...100)
 //                        .padding(.horizontal)
 //                }
-//                
+//
 //            }
-//            
-//            
+//
+//
 //            Section{
-//                
+//
 //                HStack{
-//                    
+//
 //                    Text("Hello World")
 //                        .frame(width: 300, height: 300)
 //                        //.background(.red)
@@ -280,8 +284,8 @@ struct ContentView: View {
 //                        .frame(width: 150, height: 150)
 //                }
 //            }
-//            
-//            
+//
+//
 //            Section {
 //                VStack {
 //                            ColorCyclingCircle(amount: colorCycle)
@@ -290,8 +294,44 @@ struct ContentView: View {
 //                            Slider(value: $colorCycle)
 //                        }
 //            }
-//            
+//
 //        }
+        
+        
+        //Day 45 - Project 9, part 3
+        VStack{
+            
+            Section{
+                
+                
+                ZStack {
+                    Image("singapore")
+
+                    Rectangle()
+                        .fill(.red)
+                        .blendMode(.multiply)
+                }
+                .frame(width: 400, height: 300)
+                .clipped()
+                
+                
+                
+                Image("singapore")
+                        .colorMultiply(.green)
+                
+            }
+            
+            
+            
+
+
+            
+            
+            
+        }
+        
+        
+        
         
         
         
