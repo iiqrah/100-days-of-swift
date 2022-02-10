@@ -259,6 +259,9 @@ struct ContentView: View {
     @State private var distance = 25.0
     @State private var amount = 1.0
     @State private var hue = 0.6
+    
+    
+
 
 
     
@@ -529,8 +532,10 @@ struct ContentView: View {
         
         //Day 46 - Project 9, part 4
         
-        Text("Hello, World!")
+        
+        Text("Hello")
 
+        
 
     }
 }
