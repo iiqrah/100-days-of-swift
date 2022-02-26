@@ -11,34 +11,22 @@ struct BreakUpDetailView: View {
     
     @ObservedObject var breakups: BreakUps
     var breakup: BreakUp
-
+    
     var body: some View {
         NavigationView{
             
             VStack{
-                
-                
                 VStack(alignment:.leading){
-                    
                     Text("Name: \(breakup.name)")
                         .font(.title)
                     Text("Break-Up Date: \(breakup.date)")
                         .font(.title2)
-                    
                     Text("Notes: \n\(breakup.description)")
                         .padding(.top)
-
-    
                 }
-                
                 .padding()
-                
                 Spacer()
-
-
-
                 VStack{
-                    
                     Text("Streak: \(breakup.count) \(breakup.count == 1 ? "day" : "days")")
                     
                     Button("+1 Day"){
@@ -54,20 +42,15 @@ struct BreakUpDetailView: View {
                     .padding()
                     .background(.red)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-
+                    
                 }.font(.title)
-
+                
                 Spacer()
             }
-
             .padding()
         }
-
         .preferredColorScheme(.dark)
-
-        
     }
-    
 }
 
 struct BreakUpDetailView_Previews: PreviewProvider {
