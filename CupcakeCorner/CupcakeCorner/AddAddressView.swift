@@ -15,20 +15,14 @@ struct AddAddressView: View {
             Form{
 
             Section{
-
-
                     TextField("Name ", text: $order.name)
                     TextField("Street address ", text: $order.streetAddress)
                     TextField("City ", text: $order.city)
                     TextField("State ", text: $order.state)
                     TextField("Zip Code ", text: $order.zip)
-
-
             }
-
             Section{
                 NavigationLink{
-
                     CheckoutView(order: order)
                 }
             label: {
@@ -36,9 +30,7 @@ struct AddAddressView: View {
                 Text("Proceed to check-out")
             }
             }.disabled(order.hasValidAddress == false)
-
         }
-
             .navigationTitle("Delivery Details")
             .navigationBarTitleDisplayMode(.inline)
     }
